@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a reproducible problem in PocketPrint
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Please remove secrets and personal data. Never upload private print documents or credentials."
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. Connect ...\n2. Upload ...\n3. Observe ..."
+    validations:
+      required: true
+  - type: input
+    id: app-version
+    attributes:
+      label: PocketPrint version or commit
+  - type: input
+    id: android
+    attributes:
+      label: Android device and version
+  - type: input
+    id: printer
+    attributes:
+      label: Printer make and model
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected component
+      options:
+        - Android app / USB
+        - Backend / API
+        - Web dashboard
+        - Deployment
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant redacted logs
+      description: Remove tokens, passwords, document contents, serial numbers, and personal data.
