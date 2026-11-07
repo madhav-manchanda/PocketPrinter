@@ -26,7 +26,7 @@ to the official repository.
 7. Keep the pull request updated and respond to review feedback.
 
 A fork created for contribution purposes must not be independently published,
-marketed, distributed, or maintained as a separate project. See `license.md`.
+marketed, distributed, or maintained as a separate project.
 
 ## Contributor rights and permission grant
 
