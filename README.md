@@ -62,7 +62,6 @@ flowchart LR
 | [`frontend/src/`](./frontend/src) | React/Vite dashboard for connection, upload, queue, and job control |
 | [`web/`](./web) | Server-served dashboard assets |
 | [`deploy/`](./deploy) | Nginx and service deployment configuration |
-| [`docs/`](./docs) | Architecture, quality, and hardware validation notes |
 
 ## Animated API flow
 
