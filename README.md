@@ -291,8 +291,8 @@ PocketPrint is under active development. Features, APIs, and hardware
 compatibility may change between revisions. USB printer support depends on the
 printer's USB interfaces, command language, and Android device support; a
 printer being detected does not guarantee that every model or print mode will
-work. See [USB compatibility notes](./USB_COMPATIBILITY_REPORT.md) and the
-[manual hardware checklist](./docs/MANUAL_HARDWARE_CHECKLIST.md).
+work. See the [USB compatibility report](./USB_COMPATIBILITY_REPORT.md) and
+[Phase 5 USB streaming notes](./PHASE5_USB_STREAMING.md).
 
 Please report your tested Android version, printer make/model, connection
 method, document type, and outcome when sharing compatibility feedback. Do not
