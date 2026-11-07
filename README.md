@@ -274,14 +274,32 @@ is running.
 - Uploaded documents are checked for supported structure and stored with
   integrity metadata.
 
-## Project terms
+## Open source
 
-PocketPrint uses a restricted, contribution-only licence. Viewing the public
-repository does not grant permission to republish, independently distribute,
-or sell the project. Contributions are accepted through pull requests and are
-subject to the terms in [`license.md`](./license.md) and
-[`contribution.md`](./contribution.md).
+PocketPrint is released under the [MIT License](./LICENSE). You are welcome to
+use, study, modify, and redistribute the project in accordance with that
+licence. Contributions are welcome through issues and pull requests.
 
-- [Licence](./license.md)
-- [Contribution guidelines](./contribution.md)
-- [Security policy](./security.md)
+Before contributing, please read:
+- [Contributing guide](./CONTRIBUTING.md)
+- [Code of conduct](./CODE_OF_CONDUCT.md)
+- [Security policy](./SECURITY.md)
+
+## Project status and compatibility
+
+PocketPrint is under active development. Features, APIs, and hardware
+compatibility may change between revisions. USB printer support depends on the
+printer's USB interfaces, command language, and Android device support; a
+printer being detected does not guarantee that every model or print mode will
+work. See [USB compatibility notes](./USB_COMPATIBILITY_REPORT.md) and the
+[manual hardware checklist](./docs/MANUAL_HARDWARE_CHECKLIST.md).
+
+Please report your tested Android version, printer make/model, connection
+method, document type, and outcome when sharing compatibility feedback. Do not
+attach private documents, logs containing credentials, or personal data.
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE). Third-party
+dependencies and assets may have separate licence terms; consult their
+respective notices.
