@@ -8,7 +8,7 @@ printer node: it discovers the USB printer, renders and encodes documents, and
 streams the final bytes over USB. The cloud service stores jobs and coordinates
 delivery; it does not pretend to be the USB printer.
 
-> **Project status:** active proof-of-concept / production-oriented architecture
+> **Project status:** active development / proof of concept
 > **API version:** `1`
 > **Android target:** Android 8.0+ with USB Host / OTG support
 
