@@ -1,0 +1,81 @@
+name: PocketPrint backend CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend-ci.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: pocketprint_test
+          POSTGRES_USER: pocketprint
+          POSTGRES_PASSWORD: pocketprint-ci-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pocketprint -d pocketprint_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+      - name: Compile backend modules
+        env:
+          PYTHONPATH: .
+          APP_ENV: test
+          SECRET_KEY: ci-only-not-a-production-secret
+          DATABASE_URL: postgresql+psycopg://pocketprint:pocketprint-ci-password@127.0.0.1:5432/pocketprint_test
+          STORAGE_ROOT: /tmp/pocketprint-ci-storage
+        run: python -m compileall -q backend/app backend/alembic backend/tests
+      - name: Validate Alembic migration from an empty PostgreSQL database
+        env:
+          PYTHONPATH: .
+          APP_ENV: test
+          SECRET_KEY: ci-only-not-a-production-secret
+          DATABASE_URL: postgresql+psycopg://pocketprint:pocketprint-ci-password@127.0.0.1:5432/pocketprint_test
+          STORAGE_ROOT: /tmp/pocketprint-ci-storage
+        run: |
+          alembic -c backend/alembic.ini upgrade head
+          alembic -c backend/alembic.ini check
+      - name: Validate SQLite development migration compatibility
+        env:
+          PYTHONPATH: .
+          APP_ENV: test
+          SECRET_KEY: ci-only-not-a-production-secret
+          DATABASE_URL: sqlite:////tmp/pocketprint-migration-test.db
+          STORAGE_ROOT: /tmp/pocketprint-ci-storage
+        run: alembic -c backend/alembic.ini upgrade head
+      - name: Run backend unit and PostgreSQL integration tests
+        env:
+          PYTHONPATH: .
+          APP_ENV: test
+          SECRET_KEY: ci-only-not-a-production-secret
+          DATABASE_URL: postgresql+psycopg://pocketprint:pocketprint-ci-password@127.0.0.1:5432/pocketprint_test
+          STORAGE_ROOT: /tmp/pocketprint-ci-storage
+        run: pytest -q backend/tests

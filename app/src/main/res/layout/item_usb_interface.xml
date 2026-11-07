@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:background="#F8FAFC"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tvInterfaceHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:textColor="@color/accent"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="Interface #0: Class 0x07 (Printer) | Subclass 0x01 | Protocol 0x02 (Bi-directional)" />
+
+    <TextView
+        android:id="@+id/tvEndpointDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="monospace"
+        android:textColor="#334155"
+        android:textSize="11sp"
+        tools:text="  • EP1: BULK OUT (0x02) MaxPacket: 64B\n  • EP2: BULK IN (0x81) MaxPacket: 64B" />
+
+</LinearLayout>

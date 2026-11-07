@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-lowest": "#0a0e16", "secondary": "#a4c9ff", "on-error": "#690005", "error": "#ffb4ab", "secondary-container": "#0267b8", "on-tertiary-fixed-variant": "#005236", "on-error-container": "#ffdad6", "surface-container": "#1c2028", "surface-dim": "#0f131c", "surface": "#0f131c", "outline": "#8c909f", "on-tertiary-fixed": "#002113", "surface-container-highest": "#31353e", "outline-variant": "#424754", "surface-tint": "#adc6ff", "secondary-fixed": "#d4e3ff", "primary": "#adc6ff", "on-primary-fixed": "#001a42", "on-background": "#dfe2ee", "on-primary-fixed-variant": "#004395", "surface-container-high": "#262a33", "tertiary-fixed": "#6ffbbe", "inverse-surface": "#dfe2ee", "on-surface-variant": "#c2c6d6", "surface-variant": "#31353e", "secondary-fixed-dim": "#a4c9ff", "surface-container-low": "#181c24", "on-tertiary": "#003824", "tertiary-container": "#00a572", "on-secondary": "#00315d", "primary-fixed-dim": "#adc6ff", "on-primary": "#002e6a", "on-primary-container": "#00285d", "inverse-primary": "#005ac2", "primary-fixed": "#d8e2ff", "on-secondary-container": "#d6e5ff", "tertiary-fixed-dim": "#4edea3", "on-surface": "#dfe2ee", "on-secondary-fixed-variant": "#004883", "on-tertiary-container": "#00311f", "inverse-on-surface": "#2c3039", "surface-bright": "#353942", "primary-container": "#4d8eff", "tertiary": "#4edea3", "on-secondary-fixed": "#001c39", "error-container": "#93000a", "background": "#0f131c" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin": "1.5rem", "gutter": "1rem", "space-lg": "1rem", "space-md": "0.75rem", "space-sm": "0.5rem", "margin-mobile": "1rem", "space-xs": "0.25rem", "gutter-mobile": "0.75rem", "space-xl": "1.5rem" }, "fontFamily": { "label-xs": ["Inter"], "label-md": ["Inter"], "headline-md": ["Inter"], "headline-lg": ["Inter"], "headline-xl-mobile": ["Inter"], "mono-code": ["JetBrains Mono"], "headline-xl": ["Inter"], "body-sm": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"] }, "fontSize": { "label-xs": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "600" }], "label-md": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }], "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-lg": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-xl-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "mono-code": ["12px", { "lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-xl": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.025em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "body-md": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "body-lg": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="p-space-lg flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm"><img alt="PocketPrinter Precision Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WBw1qyWkM9RPc1YHfwVdS4WFGzOu1HLJikxdhEyzKqnB6MJ3jXovk72iyByvY1btoGswdLQeJ6-7nGay99XTN6UP5hLh_RTedXZ4Egt1JhI2Q-wg1jHqlpDS86qk4lN00qx9LVT0P0BOD4lNOgPPBPuzmVX5GJ0aoTOJ78GVFWmcirRlh-iB3DGzOk8f5kLJmWy2PzLXo7S7ZUUgWLGwOht9Gk9O-08GmY0GlAtCpR"/><span class="font-headline-md text-headline-md text-on-surface tracking-tight">PocketPrinter</span></div></div><div class="px-space-lg pb-space-md"><div class="bg-surface-container p-space-sm rounded-lg flex items-center justify-between"><div class="flex items-center gap-space-xs"><div class="w-2 h-2 rounded-full bg-tertiary"></div><span class="font-mono-code text-mono-code text-on-surface font-medium">ZJ-5805DD</span></div><span class="font-label-xs text-label-xs text-tertiary uppercase">Ready</span></div></div><nav class="px-space-md flex flex-col gap-space-xs" data-active-classes="bg-surface-container-high text-primary font-medium rounded-lg"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="overview" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span class="font-body-md text-body-md">Overview</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="print-workspace" href="#"><span class="material-symbols-outlined text-[18px]">edit_document</span><span class="font-body-md text-body-md">Print Workspace</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-surface-container-high text-primary font-medium rounded-lg" data-path="print-queue" href="#"><span class="material-symbols-outlined text-[18px]">reorder</span><span class="font-body-md text-body-md">Print Queue</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="history" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span class="font-body-md text-body-md">History</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="printer-agent" href="#"><span class="material-symbols-outlined text-[18px]">print</span><span class="font-body-md text-body-md">Printer & Agent</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="diagnostics" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span><span class="font-body-md text-body-md">Diagnostics</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-body-md text-body-md">Settings</span></a></nav></div><div class="p-space-lg"><div class="bg-surface-container p-space-sm rounded-lg flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-xs text-label-xs text-on-surface-variant uppercase">Android Agent</span><div class="flex items-center gap-space-xs"><div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div><span class="font-label-xs text-label-xs text-tertiary">Connected</span></div></div><div class="font-mono-code text-mono-code text-on-surface truncate">Pixel 7a Agent · v1.4.2</div><div class="flex items-center justify-between text-on-surface-variant"><span class="font-label-xs text-label-xs">Bus Latency</span><span class="font-mono-code text-mono-code text-tertiary">42ms ping</span></div></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl z-40 flex items-center justify-between px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-sm"><img alt="PocketPrinter Precision Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WBw1qyWkM9RPc1YHfwVdS4WFGzOu1HLJikxdhEyzKqnB6MJ3jXovk72iyByvY1btoGswdLQeJ6-7nGay99XTN6UP5hLh_RTedXZ4Egt1JhI2Q-wg1jHqlpDS86qk4lN00qx9LVT0P0BOD4lNOgPPBPuzmVX5GJ0aoTOJ78GVFWmcirRlh-iB3DGzOk8f5kLJmWy2PzLXo7S7ZUUgWLGwOht9Gk9O-08GmY0GlAtCpR"/><span class="font-mono-code text-mono-code text-on-surface-variant">Core</span><span class="text-on-surface-variant font-label-xs text-label-xs">/</span><span class="font-mono-code text-mono-code text-on-surface">ESC-POS Engine</span></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-lg"><span class="font-label-xs text-label-xs text-on-surface-variant uppercase">Health</span><div class="w-2 h-2 rounded-full bg-tertiary"></div><span class="font-mono-code text-mono-code text-on-surface">100% Operational</span></div><button class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-lg text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px] text-secondary">pause_circle</span><span class="font-label-md text-label-md">Pause Spooler</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface px-space-xl py-space-xl"><div class="flex flex-col w-full gap-space-lg">
+<!-- Spooler Status & Controls Masthead -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-low p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-code text-mono-code text-secondary tracking-widest uppercase">Spool Subsystem</span>
+<span class="text-outline-variant font-mono-code text-mono-code">/</span>
+<span class="font-mono-code text-mono-code text-tertiary">Live I/O Pipe</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Print Queue & Spooler</h1>
+<span class="font-mono-code text-mono-code text-on-surface-variant">(4 Jobs Registered)</span>
+</div>
+</div>
+<!-- Global Queue Action Triggers -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="flex items-center gap-space-xs bg-surface-container-high px-space-md py-space-sm rounded-lg text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95" id="toggle-queue-btn">
+<span class="material-symbols-outlined text-[16px] text-secondary">pause_circle</span>
+<span class="font-label-md text-label-md">Pause Queue</span>
+</button>
+<button class="flex items-center gap-space-xs bg-surface-container-high px-space-md py-space-sm rounded-lg text-error hover:bg-error-container/20 transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[16px]">clear_all</span>
+<span class="font-label-md text-label-md">Purge All</span>
+</button>
+<button class="flex items-center gap-space-xs bg-primary px-space-md py-space-sm rounded-lg text-on-primary hover:bg-primary-container transition-colors active:scale-95 font-medium shadow-sm">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span class="font-label-md text-label-md">Add New Job</span>
+</button>
+</div>
+</div>
+<!-- Telemetry Bar & Metric Highlights -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md">
+<div class="bg-surface-container p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Active Device</span>
+<span class="font-headline-md text-headline-md text-on-surface">ZJ-5805DD</span>
+<span class="font-mono-code text-mono-code text-tertiary mt-space-xs">USB0 · Bulk Out (0x02)</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[20px]">print</span>
+</div>
+</div>
+<div class="bg-surface-container p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Android Pipeline</span>
+<span class="font-headline-md text-headline-md text-on-surface">Pixel 7a</span>
+<span class="font-mono-code text-mono-code text-tertiary mt-space-xs">42ms ACK Latency</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-[20px]">smartphone</span>
+</div>
+</div>
+<div class="bg-surface-container p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Throughput Rate</span>
+<span class="font-headline-md text-headline-md text-on-surface">8.4 KB/s</span>
+<span class="font-mono-code text-mono-code text-on-surface-variant mt-space-xs">Thermal Feed 62mm/s</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[20px]">speed</span>
+</div>
+</div>
+<div class="bg-surface-container p-space-md rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Buffer Pressure</span>
+<span class="font-headline-md text-headline-md text-on-surface">32%</span>
+<span class="font-mono-code text-mono-code text-on-surface-variant mt-space-xs">1,280 / 4,096 B</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">memory</span>
+</div>
+</div>
+</div>
+<!-- Filter & Tab Strip -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<!-- Status Filter Pills -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="status-tab active bg-surface-container-high text-primary px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors flex items-center gap-space-xs">
+<span>All</span>
+<span class="bg-primary/20 text-primary px-space-xs py-0.5 rounded-full font-mono-code text-[9px]">4</span>
+</button>
+<button class="status-tab text-on-surface-variant hover:text-on-surface hover:bg-surface-container px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors flex items-center gap-space-xs">
+<span>Active</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-space-xs py-0.5 rounded-full font-mono-code text-[9px]">1</span>
+</button>
+<button class="status-tab text-on-surface-variant hover:text-on-surface hover:bg-surface-container px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors flex items-center gap-space-xs">
+<span>Queued</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-space-xs py-0.5 rounded-full font-mono-code text-[9px]">2</span>
+</button>
+<button class="status-tab text-on-surface-variant hover:text-on-surface hover:bg-surface-container px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors flex items-center gap-space-xs opacity-60">
+<span>Suspended</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-space-xs py-0.5 rounded-full font-mono-code text-[9px]">0</span>
+</button>
+<button class="status-tab text-on-surface-variant hover:text-on-surface hover:bg-surface-container px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-colors flex items-center gap-space-xs">
+<span class="text-error">Failed</span>
+<span class="bg-error-container/40 text-error px-space-xs py-0.5 rounded-full font-mono-code text-[9px]">1</span>
+</button>
+</div>
+<!-- Search Input & Quick Controls -->
+<div class="flex items-center gap-space-sm">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined text-[16px] text-outline absolute left-space-sm pointer-events-none">search</span>
+<input class="bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-sm font-body-sm pl-8 pr-space-md py-space-xs rounded-lg w-72 focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Filter by filename, job ID (e.g. PJ-8834)..." type="text"/>
+</div>
+<button class="p-space-xs rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Toggle Auto-Refresh">
+<span class="material-symbols-outlined text-[18px]">autorenew</span>
+</button>
+</div>
+</div>
+<!-- Primary Spool Table -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">
+<th class="py-space-md px-space-lg">Job ID</th>
+<th class="py-space-md px-space-lg">Document Artifact</th>
+<th class="py-space-md px-space-lg">Size & Media</th>
+<th class="py-space-md px-space-lg">Target Device</th>
+<th class="py-space-md px-space-lg">Submission Source</th>
+<th class="py-space-md px-space-lg">Job State</th>
+<th class="py-space-md px-space-lg min-w-[180px]">Pipeline Progress</th>
+<th class="py-space-md px-space-lg text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/40 text-body-sm font-body-sm">
+<!-- ROW 1: ACTIVE (Printing) -->
+<tr class="bg-surface-container/60 hover:bg-surface-container transition-colors group cursor-pointer" onclick="toggleDrawer(true)">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+<span class="font-mono-code text-mono-code font-bold text-primary">#PJ-8834</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">picture_as_pdf</span>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate max-w-xs">waybill_delivery_express.pdf</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="font-mono-code text-mono-code text-on-surface">280 KB · 1 page</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">58mm × 160mm (Continuous)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-xs">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="font-mono-code text-mono-code text-on-surface">ZJ-5805DD</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant bg-surface-container-highest px-1 rounded">(USB0)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="text-on-surface">12s ago</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">via Web UI (Client REST)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-secondary-container/30 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-xs text-label-xs font-semibold tracking-wide uppercase">Printing</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-secondary font-mono-code">65% Transferred</span>
+<span class="text-on-surface-variant font-mono-code">13/20 Pkts</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 65%"></div>
+</div>
+<span class="font-mono-code text-[10px] text-tertiary">ACK latency 38ms</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs" onclick="event.stopPropagation()">
+<button class="p-1 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-colors" title="Pause Stream">
+<span class="material-symbols-outlined text-[18px]">pause</span>
+</button>
+<button class="p-1 rounded hover:bg-error-container/20 text-on-surface-variant hover:text-error transition-colors" title="Cancel Transmission">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+<button class="p-1 rounded bg-surface-container-high hover:bg-primary hover:text-on-primary text-secondary transition-colors" onclick="toggleDrawer(true)" title="Telemetry Inspector">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: QUEUED (#2) -->
+<tr class="hover:bg-surface-container/40 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span class="font-mono-code text-mono-code text-on-surface">#PJ-8835</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">description</span>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate max-w-xs">kitchen_ticket_table_14.txt</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="font-mono-code text-mono-code text-on-surface">4 KB · 1 page</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">ESC-POS Raw Text</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-xs">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="font-mono-code text-mono-code text-on-surface">ZJ-5805DD</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant bg-surface-container-highest px-1 rounded">(USB0)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="text-on-surface">28s ago</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">via POS API (Token #81)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface">
+<span class="font-mono-code text-[10px] text-secondary">#2</span>
+<span class="font-label-xs text-label-xs font-medium uppercase tracking-wide">Queued</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant font-mono-code">Waiting for buffer</span>
+<span class="text-on-surface-variant font-mono-code">0%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full" style="width: 0%"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="flex items-center gap-0.5 px-space-xs py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface transition-colors" title="Prioritize to Spool Top">
+<span class="material-symbols-outlined text-[16px]">vertical_align_top</span>
+<span class="font-label-xs text-label-xs hidden xl:inline">Top</span>
+</button>
+<button class="p-1 rounded hover:bg-error-container/20 text-on-surface-variant hover:text-error transition-colors" title="Cancel Job">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: QUEUED (#3) -->
+<tr class="hover:bg-surface-container/40 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span class="font-mono-code text-mono-code text-on-surface">#PJ-8836</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">picture_as_pdf</span>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate max-w-xs">packing_slip_order_1092.pdf</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="font-mono-code text-mono-code text-on-surface">94 KB · 3 pages</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">58mm Raster Bitonal</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-xs">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="font-mono-code text-mono-code text-on-surface">ZJ-5805DD</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant bg-surface-container-highest px-1 rounded">(USB0)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="text-on-surface">1 min ago</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">via ERP Connector</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface">
+<span class="font-mono-code text-[10px] text-secondary">#3</span>
+<span class="font-label-xs text-label-xs font-medium uppercase tracking-wide">Queued</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-label-xs font-label-xs">
+<span class="text-on-surface-variant font-mono-code">Pending Dispatch</span>
+<span class="text-on-surface-variant font-mono-code">0%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full" style="width: 0%"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="flex items-center gap-0.5 px-space-xs py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface transition-colors" title="Prioritize to Spool Top">
+<span class="material-symbols-outlined text-[16px]">vertical_align_top</span>
+<span class="font-label-xs text-label-xs hidden xl:inline">Top</span>
+</button>
+<button class="p-1 rounded hover:bg-error-container/20 text-on-surface-variant hover:text-error transition-colors" title="Cancel Job">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: FAILED (Sensor Abort) -->
+<tr class="hover:bg-surface-container/40 transition-colors group bg-error-container/10">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span class="font-mono-code text-mono-code font-bold text-error">#PJ-8833</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-error">image</span>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate max-w-xs">badge_guest_visitor_pass.png</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="font-mono-code text-mono-code text-on-surface">112 KB · 1 page</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Floyd-Steinberg Dither</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-xs">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="font-mono-code text-mono-code text-on-surface">ZJ-5805DD</span>
+<span class="font-label-xs text-label-xs text-error bg-error-container/30 px-1 rounded">(PE Trigger)</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="text-on-surface">4 mins ago</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">via FastKiosk Check-in</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-error-container text-on-error-container">
+<span class="material-symbols-outlined text-[14px]">error</span>
+<span class="font-label-xs text-label-xs font-semibold tracking-wide uppercase">Out of Paper</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-label-xs font-label-xs text-error">
+<span class="font-mono-code">Aborted by Opto Sensor</span>
+<span class="font-mono-code">0%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 14%"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="flex items-center gap-0.5 px-space-xs py-1 rounded bg-secondary-container/40 hover:bg-secondary-container text-on-secondary-container transition-colors" title="Retry After Reloading Media">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+<span class="font-label-xs text-label-xs">Retry</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Dismiss Job">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-error transition-colors" title="Inspect Error Trace">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Telemetry Drawer & Deep Inspection Panel for #PJ-8834 -->
+<div class="bg-surface-container-low rounded-xl p-space-lg shadow-md transition-all duration-300 flex flex-col gap-space-md" id="telemetry-drawer">
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-space-md border-b border-surface-container-high/60 gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">monitor_heart</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-on-surface">Real-Time Telemetry Inspector</span>
+<span class="font-mono-code text-mono-code text-primary bg-primary/10 px-space-xs py-0.5 rounded">#PJ-8834</span>
+<span class="font-mono-code text-[11px] text-tertiary">job_01j7k9m2x90f7q9a4v1c82</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Monitoring live ESC/POS byte sequence over Android USB Host Intent proxy</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-code text-mono-code text-tertiary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span> Live ACK Stream
+        </span>
+<button class="p-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" onclick="toggleDrawer(false)">
+<span class="material-symbols-outlined text-[18px]">expand_less</span>
+</button>
+</div>
+</div>
+<!-- Inspector Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Metrics & Command Summary -->
+<div class="bg-surface-container p-space-md rounded-lg flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase">ESC/POS Command Payload</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-mono-code">1,420</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">bytes rasterized</span>
+</div>
+</div>
+<div class="space-y-space-xs font-mono-code text-[11px] text-on-surface-variant">
+<div class="flex justify-between py-1 border-b border-surface-container-high/40">
+<span>GS v 0 (Print Raster):</span>
+<span class="text-on-surface">384 dots/line (48 bytes/row)</span>
+</div>
+<div class="flex justify-between py-1 border-b border-surface-container-high/40">
+<span>ESC @ (HW Initialize):</span>
+<span class="text-tertiary">Passed ACK 0x10</span>
+</div>
+<div class="flex justify-between py-1 border-b border-surface-container-high/40">
+<span>GS V m (Full Paper Cut):</span>
+<span class="text-secondary">Appended at end of stream</span>
+</div>
+<div class="flex justify-between py-1">
+<span>Thermal Density Tuning:</span>
+<span class="text-on-surface">Level 3 (+15% dwell)</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded font-mono-code text-[10px] text-outline flex items-center justify-between">
+<span>FastAPI Worker Core</span>
+<span class="text-primary">uvicorn.workers.UvicornWorker:1</span>
+</div>
+</div>
+<!-- Agent Roundtrip Timers & ACK Log -->
+<div class="bg-surface-container p-space-md rounded-lg flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase">Android Agent Buffer Log</span>
+<span class="font-mono-code text-[10px] text-secondary">Endpoint 0x02 OUT</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg font-mono-code text-[11px] flex flex-col gap-1.5 h-36 overflow-y-auto">
+<div class="text-outline-variant">[14:38:02.104] <span class="text-secondary">PACKET_SEND</span> pkt_09 size:64B seq:9</div>
+<div class="text-outline-variant">[14:38:02.141] <span class="text-tertiary">AGENT_ACK</span> USB_DEV_READY latency:37ms</div>
+<div class="text-outline-variant">[14:38:02.142] <span class="text-secondary">PACKET_SEND</span> pkt_10 size:64B seq:10</div>
+<div class="text-outline-variant">[14:38:02.180] <span class="text-tertiary">AGENT_ACK</span> USB_DEV_READY latency:38ms</div>
+<div class="text-outline-variant">[14:38:02.181] <span class="text-secondary">PACKET_SEND</span> pkt_11 size:64B seq:11</div>
+<div class="text-outline-variant">[14:38:02.224] <span class="text-tertiary">AGENT_ACK</span> USB_DEV_READY latency:43ms</div>
+<div class="text-outline-variant">[14:38:02.225] <span class="text-secondary">PACKET_SEND</span> pkt_12 size:64B seq:12</div>
+<div class="text-outline-variant">[14:38:02.264] <span class="text-tertiary">AGENT_ACK</span> USB_DEV_READY latency:39ms</div>
+<div class="text-on-surface font-semibold">[14:38:02.265] <span class="text-primary animate-pulse">TRANSMITTING</span> pkt_13 size:64B seq:13</div>
+</div>
+<div class="flex items-center justify-between text-label-xs font-label-xs text-on-surface-variant">
+<span>Max Buffer: 4,096 B</span>
+<span class="text-tertiary">Zero overflow interrupts detected</span>
+</div>
+</div>
+<!-- Realtime SVG Bus Latency Sparkline -->
+<div class="bg-surface-container p-space-md rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase">I/O Round-Trip Graph</span>
+<span class="font-mono-code text-[11px] text-tertiary">avg 39.2ms</span>
+</div>
+<!-- Inline Sparkline Curve -->
+<div class="w-full h-28 my-auto relative flex items-end">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 240 80">
+<defs>
+<lineargradient id="latencyGlow" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4edea3" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#4edea3" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#31353e" stroke-dasharray="2 4" stroke-width="1" x1="0" x2="240" y1="20" y2="20"></line>
+<line stroke="#31353e" stroke-dasharray="2 4" stroke-width="1" x1="0" x2="240" y1="50" y2="50"></line>
+<!-- Area Fill -->
+<polygon fill="url(#latencyGlow)" points="0,55 20,50 40,48 60,60 80,45 100,42 120,44 140,38 160,40 180,36 200,38 220,34 240,32 240,80 0,80"></polygon>
+<!-- Path Stroke -->
+<polyline fill="none" points="0,55 20,50 40,48 60,60 80,45 100,42 120,44 140,38 160,40 180,36 200,38 220,34 240,32" stroke="#4edea3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+<!-- Live Dot Pulse -->
+<circle class="animate-pulse" cx="240" cy="32" fill="#4edea3" r="3.5"></circle>
+</svg>
+</div>
+<div class="flex items-center justify-between font-mono-code text-[10px] text-on-surface-variant pt-2 border-t border-surface-container-high/40">
+<span>T - 12s</span>
+<span>T - 6s</span>
+<span class="text-tertiary">Realtime Now</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Scripts -->
+<script>
+    function toggleDrawer(show) {
+      const drawer = document.getElementById('telemetry-drawer');
+      if (drawer) {
+        if (show === false) {
+          drawer.classList.add('hidden');
+        } else {
+          drawer.classList.remove('hidden');
+          drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+
+    // Status Tab Selection Micro-interaction
+    document.querySelectorAll('.status-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.status-tab').forEach(t => {
+          t.classList.remove('active', 'bg-surface-container-high', 'text-primary');
+          t.classList.add('text-on-surface-variant');
+        });
+        tab.classList.add('active', 'bg-surface-container-high', 'text-primary');
+        tab.classList.remove('text-on-surface-variant');
+      });
+    });
+
+    // Pause / Resume toggle button simulation
+    const pauseBtn = document.getElementById('toggle-queue-btn');
+    if (pauseBtn) {
+      let isPaused = false;
+      pauseBtn.addEventListener('click', () => {
+        isPaused = !isPaused;
+        const icon = pauseBtn.querySelector('.material-symbols-outlined');
+        const text = pauseBtn.querySelector('span:not(.material-symbols-outlined)');
+        if (isPaused) {
+          icon.textContent = 'play_arrow';
+          icon.classList.remove('text-secondary');
+          icon.classList.add('text-tertiary');
+          text.textContent = 'Resume Queue';
+          pauseBtn.classList.add('bg-tertiary/10');
+        } else {
+          icon.textContent = 'pause_circle';
+          icon.classList.add('text-secondary');
+          icon.classList.remove('text-tertiary');
+          text.textContent = 'Pause Queue';
+          pauseBtn.classList.remove('bg-tertiary/10');
+        }
+      });
+    }
+  </script>
+</div></main></div></body></html>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PocketPrint</string>
+    <string name="title_connection_status">Connection Status</string>
+    <string name="status_disconnected">Printer Disconnected</string>
+    <string name="status_connected">Printer Connected</string>
+    <string name="status_permission_granted">USB Permission: Granted</string>
+    <string name="status_permission_denied">USB Permission: Denied</string>
+    <string name="status_permission_none">USB Permission: Not Requested</string>
+    <string name="action_scan">Scan Devices</string>
+    <string name="action_request_permission">Request Permission</string>
+    <string name="action_refresh">Refresh Info</string>
+    <string name="action_probe">Test Interface Claim</string>
+    <string name="action_clear_logs">Clear Logs</string>
+    <string name="action_copy_logs">Copy Logs</string>
+    <string name="title_devices">Detected USB Devices</string>
+    <string name="title_diagnostics">Diagnostic Logs</string>
+    <string name="empty_devices">No USB devices detected.\nConnect the printer via USB OTG cable and tap Scan.</string>
+</resources>

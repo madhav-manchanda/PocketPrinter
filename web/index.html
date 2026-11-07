@@ -1,0 +1,1620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PocketPrint — Direct VPS Printing Studio</title>
+<style>
+:root {
+  color-scheme: dark;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0b1020;
+  color: #edf2ff;
+  --bg-dark: #0b1020;
+  --card-bg: #111a2e;
+  --card-border: #263858;
+  --input-bg: #0b1426;
+  --input-border: #334155;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-light: #60a5fa;
+  --text-muted: #94a3b8;
+  --text-main: #edf2ff;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: radial-gradient(circle at 80% 0, #18264a, #0b1020 48%);
+  min-height: 100vh;
+}
+.wrap {
+  max-width: 1200px;
+  margin: auto;
+  padding: 32px 20px;
+}
+.brand {
+  font-size: 13px;
+  letter-spacing: .25em;
+  color: #9bb4ed;
+  font-weight: 700;
+}
+.hero {
+  margin: 18px 0 28px;
+}
+.hero h1 {
+  font-size: clamp(30px, 4.5vw, 46px);
+  margin: 6px 0;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.muted {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .grid { grid-template-columns: 1fr; }
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.25);
+}
+.card h2 {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+}
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 8px 0 4px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+input, select, button {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-main);
+  font-size: 13.5px;
+  margin: 4px 0 10px;
+  transition: all .15s ease;
+}
+input:focus, select:focus {
+  border-color: var(--accent-light);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(96,165,250,0.2);
+}
+button {
+  background: var(--accent);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover { background: var(--accent-hover); }
+button.secondary {
+  background: #1e293b;
+  border: 1px solid var(--input-border);
+  color: #e2e8f0;
+}
+button.secondary:hover { background: #334155; }
+button.danger { background: #dc2626; color: #fff; }
+button.danger:hover { background: #b91c1c; }
+button.success { background: #16a34a; color: #fff; }
+button.success:hover { background: #15803d; }
+button.sm {
+  width: auto;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 12px;
+  margin: 2px 4px 2px 0;
+}
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.row > * { flex: 1; }
+.hidden { display: none !important; }
+.item {
+  padding: 14px 0;
+  border-top: 1px solid #1e293b;
+}
+.item:first-of-type { border-top: 0; }
+.pill {
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 3px 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pill.queued { background: #334155; color: #cbd5e1; }
+.pill.in-flight { background: #1e3a8a; color: #93c5fd; }
+.pill.completed { background: #14532d; color: #86efac; }
+.pill.failed { background: #7f1d1d; color: #fca5a5; }
+.pill.uncertain { background: #7c2d12; color: #fdba74; }
+.notice {
+  margin: 16px 0;
+  padding: 14px;
+  border-radius: 10px;
+  background: #172554;
+  color: #dbeafe;
+  border: 1px solid #1e40af;
+}
+.notice.danger {
+  background: #450a0a;
+  color: #fecaca;
+  border-color: #991b1b;
+}
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: #1e293b;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width .3s ease;
+}
+.actions { margin-top: 8px; }
+.device-indicator {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+.device-indicator.online { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+.device-indicator.offline { background: #64748b; }
+.center-card { max-width: 480px; margin: 40px auto; }
+
+/* ── Upgraded Document Dispatcher Styling ───────────────────────────── */
+.dispatcher-card {
+  background: #111a2e;
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.25);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dispatcher-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 14px;
+}
+.dispatcher-top h2 { margin: 0; font-size: 18px; font-weight: 700; }
+.preset-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.preset-select {
+  padding: 6px 10px;
+  font-size: 12px;
+  background: #0b1426;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  color: #cbd5e1;
+  width: auto;
+  margin: 0;
+}
+
+/* File Dropzone */
+.file-dropzone {
+  border: 2px dashed #334155;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  background: #0b1426;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  position: relative;
+}
+.file-dropzone:hover, .file-dropzone.dragover {
+  border-color: var(--accent);
+  background: #101c36;
+}
+.file-dropzone input[type="file"] {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+}
+.file-info-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  background: #1e293b;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #93c5fd;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* Tabs Navigation */
+.tabs-nav {
+  display: flex;
+  gap: 4px;
+  background: #0b1426;
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+  overflow-x: auto;
+}
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 7px;
+  margin: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s ease;
+}
+.tab-btn:hover { color: #fff; background: rgba(255,255,255,0.03); }
+.tab-btn.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+}
+
+/* Dispatcher Body: Split into Settings (Left) & Live Preview (Right) */
+.dispatcher-body {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 820px) {
+  .dispatcher-body { grid-template-columns: 1fr; }
+}
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* Segmented Buttons */
+.segmented {
+  display: flex;
+  background: #0b1426;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 4px 0 10px;
+}
+.segmented button {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 10px;
+  margin: 0;
+  cursor: pointer;
+}
+.segmented button.active {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+
+/* Options Grid / Cards */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+  margin: 6px 0 12px;
+}
+.option-card {
+  background: #0b1426;
+  border: 1px solid var(--input-border);
+  border-radius: 9px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: left;
+}
+.option-card:hover { border-color: var(--accent); }
+.option-card.active {
+  border-color: var(--accent-light);
+  background: #132244;
+  box-shadow: 0 0 0 1px var(--accent-light);
+}
+.option-card .title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.option-card .desc { font-size: 11px; color: var(--text-muted); line-height: 1.3; }
+
+/* Custom Margin Box */
+.margin-editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 6px 0 10px;
+}
+.margin-field {
+  background: #0b1426;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.margin-field span { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+.margin-field input {
+  width: 60px;
+  padding: 4px 6px;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Checkbox Toggle Row */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+  cursor: pointer;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+.toggle-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+/* Live Document Preview Panel */
+.preview-panel {
+  background: #080d1a;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 280px;
+}
+.preview-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.preview-viewport {
+  width: 100%;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preview-sheet {
+  background: #f8fafc;
+  color: #0f172a;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  border-radius: 3px;
+  position: relative;
+  transition: all .25s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.preview-margin-box {
+  position: absolute;
+  border: 1px dashed rgba(59,130,246,0.8);
+  background: rgba(59,130,246,0.06);
+  pointer-events: none;
+  transition: all .2s ease;
+}
+.preview-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #64748b;
+  font-weight: 600;
+  padding: 4px;
+  text-align: center;
+  user-select: none;
+}
+.preview-nup-grid {
+  display: grid;
+  width: 90%;
+  height: 85%;
+  gap: 3px;
+  padding: 2px;
+}
+.preview-nup-tile {
+  background: rgba(148,163,184,0.3);
+  border: 1px solid rgba(100,116,139,0.4);
+  border-radius: 2px;
+}
+.preview-specs {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Dispatcher Summary Footer */
+.dispatcher-summary {
+  background: #0b1426;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.summary-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 11.5px;
+}
+.chip {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.chip.blue { background: #1e3a8a; border-color: #2563eb; color: #bfdbfe; }
+.chip.green { background: #064e3b; border-color: #059669; color: #a7f3d0; }
+.submit-btn {
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 10px;
+  width: auto;
+  margin: 0;
+  box-shadow: 0 4px 14px rgba(59,130,246,0.4);
+}
+.submit-btn:hover { background: var(--accent-hover); }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="brand">POCKETPRINT / VPS PRINTER CONSOLE</div>
+  <header class="hero">
+    <h1>Direct VPS Printing.</h1>
+    <p class="muted">No accounts or sign-ups. Connect directly with your printer password.</p>
+  </header>
+
+  <div id="notice" class="notice hidden" role="status"></div>
+
+  <!-- Connection Form -->
+  <section id="connectSection" class="center-card">
+    <div class="card">
+      <h2>Connect to Printer</h2>
+      <p class="muted" style="margin-top:-8px;margin-bottom:16px">Enter your PocketPrint VPS endpoint and the printer password configured on your Android device.</p>
+      <form id="connectForm">
+        <label>VPS Server URL</label>
+        <input name="vpsUrl" id="vpsUrl" type="url" placeholder="https://vps.example.com" required>
+        <label>Printer Password</label>
+        <input name="password" id="password" type="password" placeholder="••••••••••••" required>
+        <button type="submit" id="connectBtn">Connect to Printer</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Main Console -->
+  <section id="console" class="hidden">
+    <div class="row" style="margin-bottom:20px">
+      <div>
+        <h2 id="printerHeader" style="margin:0">Connected Printer</h2>
+        <div id="printerSubheader" class="muted" style="font-size:13px;margin-top:4px">Checking status…</div>
+      </div>
+      <div style="text-align:right">
+        <button id="disconnectBtn" class="secondary" style="max-width:130px">Disconnect</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left: Printer Status -->
+      <div class="card">
+        <h2>Printer Status</h2>
+        <div id="deviceDetails" class="muted">Loading details…</div>
+      </div>
+
+      <!-- Right: Advanced Document Dispatcher Studio -->
+      <div class="dispatcher-card">
+        <form id="dispatcherForm">
+          <!-- Top Dispatcher Bar -->
+          <div class="dispatcher-top">
+            <div>
+              <h2>Submit Document to Print</h2>
+              <div class="muted" style="font-size:12px;margin-top:2px">Configure print parameters and dispatch directly to the Android USB host agent.</div>
+            </div>
+            <div class="preset-bar">
+              <span class="muted" style="font-size:11px;font-weight:600">PRESET:</span>
+              <select id="presetSelect" class="preset-select">
+                <option value="everyday">Everyday Documents</option>
+                <option value="high_quality">High Quality (600 DPI)</option>
+                <option value="draft">Draft / Ink Saver</option>
+                <option value="photo">Photo Printing</option>
+                <option value="custom" selected>Custom Configuration</option>
+              </select>
+              <button type="button" id="resetPresetBtn" class="secondary sm" title="Reset all settings to defaults">Reset</button>
+            </div>
+          </div>
+
+          <!-- File Upload Dropzone -->
+          <div class="file-dropzone" id="dropzone">
+            <input name="file" id="fileInput" type="file" accept=".pdf,.png,.jpg,.jpeg,.bmp,.webp,.tif,.tiff,.txt,.csv,.docx,.xlsx,.pptx,.rtf" required>
+            <div id="dropzoneText">
+              <span style="font-size:24px;display:block;margin-bottom:4px">📄</span>
+              <span style="font-size:13px;font-weight:600;color:#93c5fd">Choose document or drag & drop</span>
+              <div class="muted" style="font-size:11.5px;margin-top:2px">PDF, Images (PNG, JPG, BMP, WebP, TIFF), Text, Office documents</div>
+            </div>
+            <div id="fileBadge" class="file-info-badge hidden">
+              <span id="badgeFilename">document.pdf</span> · <span id="badgeSize">0 KB</span>
+            </div>
+          </div>
+
+          <!-- Navigation Tabs -->
+          <div class="tabs-nav" role="tablist">
+            <button type="button" class="tab-btn active" data-tab="layout">1. Layout</button>
+            <button type="button" class="tab-btn" data-tab="quality">2. Quality</button>
+            <button type="button" class="tab-btn" data-tab="margins">3. Margins</button>
+            <button type="button" class="tab-btn" data-tab="color">4. Color</button>
+            <button type="button" class="tab-btn" data-tab="paper">5. Paper</button>
+            <button type="button" class="tab-btn" data-tab="advanced">6. Advanced</button>
+          </div>
+
+          <!-- Dispatcher Body: Settings on Left, Live Preview on Right -->
+          <div class="dispatcher-body">
+            <!-- Left Side: Tab Panes -->
+            <div class="settings-panes">
+              <!-- ── 1. LAYOUT TAB ──────────────────────────────────────── -->
+              <div class="tab-pane active" id="pane-layout">
+                <label>Page Orientation</label>
+                <div class="segmented" id="orientationGroup">
+                  <button type="button" class="active" data-val="PORTRAIT">Portrait ▯</button>
+                  <button type="button" data-val="LANDSCAPE">Landscape ▭</button>
+                </div>
+                <input type="hidden" name="orientation" id="orientationInput" value="PORTRAIT">
+
+                <div class="row">
+                  <div>
+                    <label>Copies</label>
+                    <input name="copies" id="copiesInput" type="number" min="1" max="99" value="1" required>
+                  </div>
+                  <div>
+                    <label>Collation</label>
+                    <select name="collate" id="collateSelect">
+                      <option value="true">Collated (1,2,3 · 1,2,3)</option>
+                      <option value="false">Uncollated (1,1 · 2,2)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div>
+                    <label>Pages Per Sheet (N-Up)</label>
+                    <select name="pagesPerSheet" id="nupSelect">
+                      <option value="1">1 page per sheet (Standard)</option>
+                      <option value="2">2 pages per sheet (2-up)</option>
+                      <option value="4">4 pages per sheet (4-up)</option>
+                      <option value="6">6 pages per sheet (6-up)</option>
+                      <option value="9">9 pages per sheet (9-up)</option>
+                      <option value="16">16 pages per sheet (16-up)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Scaling</label>
+                    <select name="scaling" id="scalingSelect">
+                      <option value="FIT_TO_PAGE">Fit to printable area</option>
+                      <option value="ACTUAL_SIZE">Actual size (100%)</option>
+                      <option value="FILL_PAGE">Fill page (Crop to fill)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <label>Page Range</label>
+                <input name="pageRange" id="pageRangeInput" type="text" placeholder="All pages (e.g. 1-3, 5, 8)">
+
+                <label class="toggle-row">
+                  <input type="checkbox" id="reverseOrderCheck">
+                  <span>Reverse page order (print back-to-front)</span>
+                </label>
+              </div>
+
+              <!-- ── 2. QUALITY TAB ─────────────────────────────────────── -->
+              <div class="tab-pane" id="pane-quality">
+                <label>Print Quality Preset</label>
+                <div class="options-grid" id="qualityCards">
+                  <div class="option-card" data-val="DRAFT">
+                    <div class="title">Draft</div>
+                    <div class="desc">High-speed text mode, minimal ink deposit.</div>
+                  </div>
+                  <div class="option-card active" data-val="NORMAL">
+                    <div class="title">Normal</div>
+                    <div class="desc">Balanced 300 DPI, verified PCL3GUI2 standard.</div>
+                  </div>
+                  <div class="option-card" data-val="HIGH">
+                    <div class="title">High</div>
+                    <div class="desc">600 DPI, smoothed gradients and sharp line-art.</div>
+                  </div>
+                  <div class="option-card" data-val="BEST">
+                    <div class="title">Best</div>
+                    <div class="desc">Maximum 1200 DPI archival photo raster.</div>
+                  </div>
+                </div>
+                <input type="hidden" name="quality" id="qualityInput" value="NORMAL">
+
+                <label>Resolution (DPI)</label>
+                <div class="segmented" id="dpiGroup">
+                  <button type="button" data-val="150">150 DPI</button>
+                  <button type="button" class="active" data-val="300">300 DPI</button>
+                  <button type="button" data-val="600">600 DPI</button>
+                  <button type="button" data-val="1200">1200 DPI</button>
+                </div>
+                <input type="hidden" name="dpi" id="dpiInput" value="300">
+
+                <label>Optimization Target</label>
+                <select id="optimizationSelect">
+                  <option value="MIXED">Mixed Text & Graphics (Hybrid Dual-Plane)</option>
+                  <option value="TEXT">Text Documents (High-contrast pigment K)</option>
+                  <option value="IMAGES">Photographs & Images (Tonal smoothness)</option>
+                  <option value="ECONOMY">Economy Mode (Ink Saver)</option>
+                  <option value="FINE_DETAIL">Fine Detail (Sub-pixel vector alignment)</option>
+                </select>
+
+                <!-- Speed / Ink Trade-off Meter -->
+                <div style="background:#0b1426;border:1px solid #1e293b;border-radius:8px;padding:10px;margin-top:10px">
+                  <div class="row" style="font-size:11.5px;color:var(--text-muted);margin-bottom:4px">
+                    <span>Print Speed: <b id="speedRating" style="color:#22c55e">Fast (3.2s/page)</b></span>
+                    <span style="text-align:right">Detail: <b id="detailRating" style="color:#60a5fa">Standard 300 DPI</b></span>
+                  </div>
+                  <div class="progress-bar-bg" style="margin:2px 0 0">
+                    <div class="progress-bar-fill" id="qualityMeter" style="width:50%;background:#3b82f6"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 3. MARGINS TAB ─────────────────────────────────────── -->
+              <div class="tab-pane" id="pane-margins">
+                <div class="row">
+                  <div>
+                    <label>Margin Preset</label>
+                    <select id="marginPresetSelect">
+                      <option value="normal">Normal (20 mm / 0.79 in)</option>
+                      <option value="narrow">Narrow (12.7 mm / 0.50 in)</option>
+                      <option value="moderate">Moderate (15 mm / 0.59 in)</option>
+                      <option value="wide">Wide (25.4 mm / 1.00 in)</option>
+                      <option value="minimum" selected>Minimum Hardware (4 mm)</option>
+                      <option value="custom">Custom</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Measurement Unit</label>
+                    <div class="segmented" id="marginUnitGroup" style="margin-top:4px">
+                      <button type="button" class="active" data-val="mm">mm</button>
+                      <button type="button" data-val="in">inches</button>
+                    </div>
+                  </div>
+                </div>
+
+                <label>Custom Margins (<span id="unitLabel">mm</span>)</label>
+                <div class="margin-editor">
+                  <div class="margin-field">
+                    <span>TOP</span>
+                    <input type="number" id="marginTop" value="4.0" step="0.5" min="3.0">
+                  </div>
+                  <div class="margin-field">
+                    <span>BOTTOM</span>
+                    <input type="number" id="marginBottom" value="4.0" step="0.5" min="3.0">
+                  </div>
+                  <div class="margin-field">
+                    <span>LEFT</span>
+                    <input type="number" id="marginLeft" value="4.0" step="0.5" min="3.0">
+                  </div>
+                  <div class="margin-field">
+                    <span>RIGHT</span>
+                    <input type="number" id="marginRight" value="4.0" step="0.5" min="3.0">
+                  </div>
+                </div>
+                <input type="hidden" name="margins" id="marginsJsonInput" value='{"top":4,"bottom":4,"left":4,"right":4,"unit":"mm"}'>
+
+                <div class="row">
+                  <label class="toggle-row">
+                    <input type="checkbox" id="lockMarginsCheck">
+                    <span>Lock equal margins</span>
+                  </label>
+                  <label class="toggle-row">
+                    <input type="checkbox" id="centerHorizCheck" checked>
+                    <span>Center horizontally</span>
+                  </label>
+                </div>
+                <div class="muted" style="font-size:11px;margin-top:4px" id="printableAreaInfo">
+                  Printable area: 202.0 × 289.0 mm (HP Ink Tank 310 safe bounds).
+                </div>
+              </div>
+
+              <!-- ── 4. COLOR TAB ───────────────────────────────────────── -->
+              <div class="tab-pane" id="pane-color">
+                <label>Color Mode</label>
+                <div class="options-grid" id="colorCards">
+                  <div class="option-card active" data-val="COLOR_RGB">
+                    <div class="title">Full Color (RGB)</div>
+                    <div class="desc">Dual-Plane: K Mode 9 delta row + RGB Mode 10.</div>
+                  </div>
+                  <div class="option-card" data-val="GRAYSCALE_8BIT">
+                    <div class="title">Grayscale (8-bit)</div>
+                    <div class="desc">BT.709 neutral luminance via color plane.</div>
+                  </div>
+                  <div class="option-card" data-val="MONOCHROME_1BIT">
+                    <div class="title">Black & White</div>
+                    <div class="desc">Pigment black only, high speed text dither.</div>
+                  </div>
+                  <div class="option-card" data-val="AUTO">
+                    <div class="title">Auto Detection</div>
+                    <div class="desc">Analyzes each page for color presence.</div>
+                  </div>
+                </div>
+                <input type="hidden" name="colorMode" id="colorModeInput" value="COLOR_RGB">
+
+                <label>Color Intensity: <span id="intensityVal">100%</span></label>
+                <input type="range" id="colorIntensity" min="50" max="150" value="100" style="margin:4px 0 10px">
+
+                <label class="toggle-row">
+                  <input type="checkbox" id="optColorCheck" checked>
+                  <span>Image color optimization (vibrant neutrals)</span>
+                </label>
+                <label class="toggle-row">
+                  <input type="checkbox" id="economyColorCheck">
+                  <span>Economy color mode (reduces color ink usage by 20%)</span>
+                </label>
+                <label class="toggle-row">
+                  <input type="checkbox" id="pigmentBlackOnlyCheck" checked>
+                  <span>Pigment Black extraction for neutral darks</span>
+                </label>
+              </div>
+
+              <!-- ── 5. PAPER TAB ───────────────────────────────────────── -->
+              <div class="tab-pane" id="pane-paper">
+                <div class="row">
+                  <div>
+                    <label>Paper Size</label>
+                    <select name="paperSize" id="paperSizeSelect">
+                      <option value="A4" selected>A4 (210 × 297 mm)</option>
+                      <option value="LETTER">US Letter (8.5 × 11 in)</option>
+                      <option value="LEGAL">US Legal (8.5 × 14 in)</option>
+                      <option value="A5">A5 (148 × 210 mm)</option>
+                      <option value="A6">A6 (105 × 148 mm)</option>
+                      <option value="B5">JIS B5 (176 × 250 mm)</option>
+                      <option value="EXECUTIVE">Executive (7.25 × 10.5 in)</option>
+                      <option value="CUSTOM">Custom Dimensions</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Paper Type / Media</label>
+                    <select id="paperTypeSelect">
+                      <option value="PLAIN" selected>Plain Paper (Standard 80gsm)</option>
+                      <option value="PHOTO_GLOSSY">HP Advanced Photo Paper (Glossy)</option>
+                      <option value="PHOTO_MATTE">Matte Presentation / Brochure</option>
+                      <option value="PREMIUM_INKJET">HP Everyday Inkjet Paper</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div>
+                    <label>Paper Tray / Source</label>
+                    <select id="paperTraySelect">
+                      <option value="AUTO">Auto Select (Rear Feed Tray)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Paper Weight</label>
+                    <select id="paperWeightSelect">
+                      <option value="STANDARD" selected>Standard (75 – 90 gsm)</option>
+                      <option value="HEAVY">Heavyweight (90 – 200 gsm)</option>
+                      <option value="PHOTO">Photo Paper (200 – 300 gsm)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="muted" style="font-size:12px;margin-top:6px" id="paperDimReadout">
+                  Dimensions: <b>210.0 × 297.0 mm</b> (8.27 × 11.69 inches) · Aspect: 1:1.414
+                </div>
+              </div>
+
+              <!-- ── 6. ADVANCED TAB ────────────────────────────────────── -->
+              <div class="tab-pane" id="pane-advanced">
+                <label class="toggle-row">
+                  <input type="checkbox" id="skipBlankCheck" checked>
+                  <span>Skip blank pages (prevents empty sheet feed)</span>
+                </label>
+                <label class="toggle-row">
+                  <input type="checkbox" id="bgGraphicsCheck" checked>
+                  <span>Print background colors and images</span>
+                </label>
+
+                <div class="row" style="margin-top:8px">
+                  <div>
+                    <label>Image Interpolation</label>
+                    <select id="interpolationSelect">
+                      <option value="BICUBIC" selected>Bicubic (Crisp details)</option>
+                      <option value="BILINEAR">Bilinear (Smooth tones)</option>
+                      <option value="NEAREST">Nearest Neighbor</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Duplex Mode</label>
+                    <select id="duplexSelect">
+                      <option value="SIMPLEX" selected>Single-sided (Simplex)</option>
+                      <option value="MANUAL_DUPLEX">Manual 2-Sided (Flip on long edge)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div>
+                    <label>Rendering Engine</label>
+                    <select id="engineSelect">
+                      <option value="NATIVE" selected>PocketPrint Native PCL3GUI2 Engine</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>USB Host Pacing</label>
+                    <select id="pacingSelect">
+                      <option value="2" selected>2 ms Safe Inter-chunk Pacing (Standard)</option>
+                      <option value="0">0 ms Zero-delay Turbo</option>
+                      <option value="5">5 ms Conservative Buffer Protection</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side: Live Document Layout Preview -->
+            <div class="preview-panel">
+              <div class="preview-header">
+                <span>Visual Layout Preview</span>
+                <span id="previewAspect">A4 ▯</span>
+              </div>
+              <div class="preview-viewport">
+                <div class="preview-sheet" id="previewSheet" style="width:130px;height:184px">
+                  <div class="preview-margin-box" id="previewMarginBox" style="top:4px;bottom:4px;left:4px;right:4px"></div>
+                  <div class="preview-content" id="previewContent">
+                    <div id="previewNupGrid" class="preview-nup-grid hidden"></div>
+                    <div id="previewPageText">
+                      <div style="font-size:16px;margin-bottom:2px">📄</div>
+                      <span id="previewPageLabel">Page 1</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-specs" id="previewSpecs">
+                300 DPI · Normal Margins<br>
+                Printable: 202 × 289 mm
+              </div>
+            </div>
+          </div>
+
+          <!-- Print Summary Bar & Submit Action -->
+          <div class="dispatcher-summary">
+            <div class="summary-chips" id="summaryChips">
+              <span class="chip blue" id="chipPrinter">HP Ink Tank 310 series</span>
+              <span class="chip" id="chipFile">No file chosen</span>
+              <span class="chip green" id="chipColor">Color RGB · 300 DPI</span>
+              <span class="chip" id="chipPaper">A4 Portrait · 1 copy</span>
+            </div>
+            <button type="submit" id="submitJobBtn" class="submit-btn">Queue Print Job</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bottom Queue Table -->
+    <div class="card" style="margin-top:20px">
+      <div class="row">
+        <h2 style="margin:0">Print Queue & History</h2>
+        <div style="text-align:right">
+          <button id="refreshJobsBtn" class="secondary sm">Refresh</button>
+        </div>
+      </div>
+      <div id="jobs" class="muted" style="margin-top:12px">Loading jobs…</div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+let clientToken = sessionStorage.getItem('pp_client_token') || '';
+let vpsBase = sessionStorage.getItem('pp_vps_url') || window.location.origin;
+let refreshTimer = null;
+let currentDevice = null;
+let selectedFile = null;
+
+if (!sessionStorage.getItem('pp_vps_url')) {
+  $('#vpsUrl').value = window.location.origin;
+} else {
+  $('#vpsUrl').value = vpsBase;
+}
+
+function notice(msg, error = false) {
+  const n = $('#notice');
+  n.textContent = msg;
+  n.classList.remove('hidden');
+  n.classList.toggle('danger', error);
+  setTimeout(() => n.classList.add('hidden'), 7000);
+}
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+async function api(path, options = {}) {
+  const url = (vpsBase.replace(/\/+$/, '')) + path;
+  const headers = new Headers(options.headers || {});
+  if (clientToken) headers.set('Authorization', 'Bearer ' + clientToken);
+  return fetch(url, { ...options, headers });
+}
+
+/* ── Tab Switching ─────────────────────────────────────────────────── */
+$$('.tab-btn').forEach(btn => {
+  btn.onclick = () => {
+    $$('.tab-btn').forEach(b => b.classList.remove('active'));
+    $$('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const paneId = 'pane-' + btn.dataset.tab;
+    const pane = $('#' + paneId);
+    if (pane) pane.classList.add('active');
+  };
+});
+
+/* ── Segmented Controls ────────────────────────────────────────────── */
+function setupSegmented(containerId, inputId, onChange) {
+  const cont = $('#' + containerId);
+  const inp = $('#' + inputId);
+  if (!cont || !inp) return;
+  cont.querySelectorAll('button').forEach(btn => {
+    btn.onclick = () => {
+      cont.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      inp.value = btn.dataset.val;
+      if (onChange) onChange(btn.dataset.val);
+      updatePreview();
+      updateSummary();
+    };
+  });
+}
+setupSegmented('orientationGroup', 'orientationInput');
+setupSegmented('dpiGroup', 'dpiInput', val => {
+  updateQualityMeter();
+});
+
+/* ── Option Cards (Quality & Color) ────────────────────────────────── */
+function setupCards(containerId, inputId, onChange) {
+  const cont = $('#' + containerId);
+  const inp = $('#' + inputId);
+  if (!cont || !inp) return;
+  cont.querySelectorAll('.option-card').forEach(card => {
+    card.onclick = () => {
+      cont.querySelectorAll('.option-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      inp.value = card.dataset.val;
+      if (onChange) onChange(card.dataset.val);
+      updatePreview();
+      updateSummary();
+    };
+  });
+}
+setupCards('qualityCards', 'qualityInput', val => {
+  if (val === 'DRAFT') $('#dpiGroup button[data-val="300"]').click();
+  else if (val === 'NORMAL') $('#dpiGroup button[data-val="300"]').click();
+  else if (val === 'HIGH') $('#dpiGroup button[data-val="600"]').click();
+  else if (val === 'BEST') $('#dpiGroup button[data-val="1200"]').click();
+  updateQualityMeter();
+});
+setupCards('colorCards', 'colorModeInput');
+
+/* ── Margin Editor & Units ─────────────────────────────────────────── */
+let marginUnit = 'mm';
+const marginPresets = {
+  normal: { top: 20, bottom: 20, left: 20, right: 20 },
+  narrow: { top: 12.7, bottom: 12.7, left: 12.7, right: 12.7 },
+  moderate: { top: 15, bottom: 15, left: 15, right: 15 },
+  wide: { top: 25.4, bottom: 25.4, left: 25.4, right: 25.4 },
+  minimum: { top: 4, bottom: 4, left: 4, right: 4 }
+};
+
+$('#marginPresetSelect').onchange = e => {
+  const p = marginPresets[e.target.value];
+  if (p) {
+    const factor = marginUnit === 'in' ? (1 / 25.4) : 1;
+    $('#marginTop').value = (p.top * factor).toFixed(1);
+    $('#marginBottom').value = (p.bottom * factor).toFixed(1);
+    $('#marginLeft').value = (p.left * factor).toFixed(1);
+    $('#marginRight').value = (p.right * factor).toFixed(1);
+    syncMarginsJson();
+    updatePreview();
+    updateSummary();
+  }
+};
+
+$('#marginUnitGroup').querySelectorAll('button').forEach(btn => {
+  btn.onclick = () => {
+    if (marginUnit === btn.dataset.val) return;
+    $('#marginUnitGroup').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const oldUnit = marginUnit;
+    marginUnit = btn.dataset.val;
+    $('#unitLabel').textContent = marginUnit;
+    const factor = marginUnit === 'in' ? (1 / 25.4) : 25.4;
+    ['Top', 'Bottom', 'Left', 'Right'].forEach(side => {
+      const inp = $('#margin' + side);
+      inp.value = (parseFloat(inp.value) * factor).toFixed(marginUnit === 'in' ? 2 : 1);
+      inp.step = marginUnit === 'in' ? '0.05' : '0.5';
+    });
+    syncMarginsJson();
+  };
+});
+
+function syncMarginsJson() {
+  const factor = marginUnit === 'in' ? 25.4 : 1;
+  const top = parseFloat($('#marginTop').value || 4) * factor;
+  const bottom = parseFloat($('#marginBottom').value || 4) * factor;
+  const left = parseFloat($('#marginLeft').value || 4) * factor;
+  const right = parseFloat($('#marginRight').value || 4) * factor;
+  $('#marginsJsonInput').value = JSON.stringify({
+    top: Math.max(3, top),
+    bottom: Math.max(3, bottom),
+    left: Math.max(3, left),
+    right: Math.max(3, right),
+    unit: 'mm'
+  });
+}
+
+['marginTop', 'marginBottom', 'marginLeft', 'marginRight'].forEach(id => {
+  $('#' + id).oninput = e => {
+    if ($('#lockMarginsCheck').checked) {
+      ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'].forEach(oid => {
+        if (oid !== id) $('#' + oid).value = e.target.value;
+      });
+    }
+    $('#marginPresetSelect').value = 'custom';
+    syncMarginsJson();
+    updatePreview();
+    updateSummary();
+  };
+});
+
+/* ── Paper Dimensions & Specifications ─────────────────────────────── */
+const paperSizes = {
+  A4: { w: 210, h: 297, name: 'A4' },
+  LETTER: { w: 215.9, h: 279.4, name: 'Letter' },
+  LEGAL: { w: 215.9, h: 355.6, name: 'Legal' },
+  A5: { w: 148, h: 210, name: 'A5' },
+  A6: { w: 105, h: 148, name: 'A6' },
+  B5: { w: 176, h: 250, name: 'B5' },
+  EXECUTIVE: { w: 184.1, h: 266.7, name: 'Executive' },
+  CUSTOM: { w: 210, h: 297, name: 'Custom' }
+};
+
+$('#paperSizeSelect').onchange = () => {
+  const p = paperSizes[$('#paperSizeSelect').value] || paperSizes.A4;
+  const wIn = (p.w / 25.4).toFixed(2);
+  const hIn = (p.h / 25.4).toFixed(2);
+  const aspect = (p.h / p.w).toFixed(3);
+  $('#paperDimReadout').innerHTML = `Dimensions: <b>${p.w} × ${p.h} mm</b> (${wIn} × ${hIn} in) · Aspect: 1:${aspect}`;
+  updatePreview();
+  updateSummary();
+};
+
+/* ── Quality Meter ─────────────────────────────────────────────────── */
+function updateQualityMeter() {
+  const dpi = parseInt($('#dpiInput').value || 300);
+  const q = $('#qualityInput').value;
+  let speed = 'Fast (3.2s/page)';
+  let detail = `${dpi} DPI Standard`;
+  let pct = 50;
+
+  if (dpi === 150 || q === 'DRAFT') {
+    speed = 'Ultra Fast (1.8s/page) ⚡';
+    detail = 'Draft 150/300 DPI';
+    pct = 25;
+  } else if (dpi === 300) {
+    speed = 'Balanced (3.5s/page)';
+    detail = 'Normal 300 DPI';
+    pct = 50;
+  } else if (dpi === 600) {
+    speed = 'Moderate (6.5s/page)';
+    detail = 'High Detail 600 DPI 🎯';
+    pct = 75;
+  } else if (dpi >= 1200) {
+    speed = 'Archival (14s/page)';
+    detail = 'Best 1200 DPI Photo';
+    pct = 95;
+  }
+  $('#speedRating').textContent = speed;
+  $('#detailRating').textContent = detail;
+  $('#qualityMeter').style.width = pct + '%';
+}
+
+/* ── Presets Handler ───────────────────────────────────────────────── */
+$('#presetSelect').onchange = e => {
+  const pr = e.target.value;
+  if (pr === 'everyday') {
+    $('#orientationGroup button[data-val="PORTRAIT"]').click();
+    $('#qualityCards .option-card[data-val="NORMAL"]').click();
+    $('#colorCards .option-card[data-val="MONOCHROME_1BIT"]').click();
+    $('#marginPresetSelect').value = 'normal';
+    $('#marginPresetSelect').dispatchEvent(new Event('change'));
+    $('#paperSizeSelect').value = 'A4';
+    $('#scalingSelect').value = 'FIT_TO_PAGE';
+    $('#nupSelect').value = '1';
+  } else if (pr === 'high_quality') {
+    $('#orientationGroup button[data-val="PORTRAIT"]').click();
+    $('#qualityCards .option-card[data-val="HIGH"]').click();
+    $('#colorCards .option-card[data-val="COLOR_RGB"]').click();
+    $('#marginPresetSelect').value = 'narrow';
+    $('#marginPresetSelect').dispatchEvent(new Event('change'));
+    $('#paperSizeSelect').value = 'A4';
+    $('#scalingSelect').value = 'FIT_TO_PAGE';
+  } else if (pr === 'draft') {
+    $('#qualityCards .option-card[data-val="DRAFT"]').click();
+    $('#colorCards .option-card[data-val="MONOCHROME_1BIT"]').click();
+    $('#marginPresetSelect').value = 'minimum';
+    $('#marginPresetSelect').dispatchEvent(new Event('change'));
+    $('#economyColorCheck').checked = true;
+  } else if (pr === 'photo') {
+    $('#qualityCards .option-card[data-val="HIGH"]').click();
+    $('#colorCards .option-card[data-val="COLOR_RGB"]').click();
+    $('#paperSizeSelect').value = 'A4';
+    $('#paperTypeSelect').value = 'PHOTO_GLOSSY';
+    $('#scalingSelect').value = 'FILL_PAGE';
+    $('#marginPresetSelect').value = 'minimum';
+    $('#marginPresetSelect').dispatchEvent(new Event('change'));
+  }
+  updatePreview();
+  updateSummary();
+};
+
+$('#resetPresetBtn').onclick = () => {
+  $('#presetSelect').value = 'everyday';
+  $('#presetSelect').dispatchEvent(new Event('change'));
+  notice('Print settings reset to Everyday Document defaults');
+};
+
+/* ── File Selection & Drag & Drop ─────────────────────────────────── */
+const dropzone = $('#dropzone');
+const fileInput = $('#fileInput');
+
+fileInput.onchange = e => {
+  if (e.target.files && e.target.files[0]) {
+    handleFileSelected(e.target.files[0]);
+  }
+};
+dropzone.ondragover = e => { e.preventDefault(); dropzone.classList.add('dragover'); };
+dropzone.ondragleave = () => dropzone.classList.remove('dragover');
+dropzone.ondrop = e => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+    fileInput.files = e.dataTransfer.files;
+    handleFileSelected(e.dataTransfer.files[0]);
+  }
+};
+
+function handleFileSelected(file) {
+  selectedFile = file;
+  $('#dropzoneText').classList.add('hidden');
+  $('#fileBadge').classList.remove('hidden');
+  $('#badgeFilename').textContent = file.name;
+  const kb = (file.size / 1024).toFixed(1);
+  $('#badgeSize').textContent = kb > 1024 ? (kb / 1024).toFixed(2) + ' MB' : kb + ' KB';
+  $('#previewPageLabel').textContent = file.name.length > 14 ? file.name.slice(0, 11) + '…' : file.name;
+  updateSummary();
+}
+
+/* ── Live Visual Layout Preview ────────────────────────────────────── */
+function updatePreview() {
+  const orientation = $('#orientationInput').value;
+  const paperKey = $('#paperSizeSelect').value;
+  const paper = paperSizes[paperKey] || paperSizes.A4;
+  const isLandscape = orientation === 'LANDSCAPE';
+  const paperW = isLandscape ? paper.h : paper.w;
+  const paperH = isLandscape ? paper.w : paper.h;
+
+  // Viewport bounds: max width 170px, max height 210px
+  const maxW = 170;
+  const maxH = 210;
+  const scale = Math.min(maxW / paperW, maxH / paperH);
+  const sheetW = Math.round(paperW * scale);
+  const sheetH = Math.round(paperH * scale);
+
+  const sheet = $('#previewSheet');
+  sheet.style.width = sheetW + 'px';
+  sheet.style.height = sheetH + 'px';
+
+  $('#previewAspect').textContent = `${paper.name} ${isLandscape ? '▭' : '▯'}`;
+
+  // Margins in sheet pixels
+  const factor = marginUnit === 'in' ? 25.4 : 1;
+  const topMm = parseFloat($('#marginTop').value || 4) * factor;
+  const botMm = parseFloat($('#marginBottom').value || 4) * factor;
+  const leftMm = parseFloat($('#marginLeft').value || 4) * factor;
+  const rightMm = parseFloat($('#marginRight').value || 4) * factor;
+
+  const topPx = Math.max(1, Math.round(topMm * scale));
+  const botPx = Math.max(1, Math.round(botMm * scale));
+  const leftPx = Math.max(1, Math.round(leftMm * scale));
+  const rightPx = Math.max(1, Math.round(rightMm * scale));
+
+  const marginBox = $('#previewMarginBox');
+  marginBox.style.top = topPx + 'px';
+  marginBox.style.bottom = botPx + 'px';
+  marginBox.style.left = leftPx + 'px';
+  marginBox.style.right = rightPx + 'px';
+
+  // N-Up handling
+  const nup = parseInt($('#nupSelect').value || 1);
+  const nupGrid = $('#previewNupGrid');
+  const pageText = $('#previewPageText');
+
+  if (nup > 1) {
+    pageText.classList.add('hidden');
+    nupGrid.classList.remove('hidden');
+    const cols = nup === 2 ? 1 : nup <= 4 ? 2 : nup <= 9 ? 3 : 4;
+    const rows = Math.ceil(nup / cols);
+    nupGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    nupGrid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    nupGrid.innerHTML = Array(nup).fill(0).map(() => '<div class="preview-nup-tile"></div>').join('');
+  } else {
+    pageText.classList.remove('hidden');
+    nupGrid.classList.add('hidden');
+  }
+
+  // Printable area text
+  const pWidth = (paperW - leftMm - rightMm).toFixed(1);
+  const pHeight = (paperH - topMm - botMm).toFixed(1);
+  $('#previewSpecs').innerHTML = `${$('#dpiInput').value} DPI · ${$('#colorModeInput').value}<br>Printable: ${pWidth} × ${pHeight} mm`;
+  $('#printableAreaInfo').textContent = `Printable area: ${pWidth} × ${pHeight} mm (minimum safe margin: 3.0 mm).`;
+}
+
+/* ── Live Summary Bar ──────────────────────────────────────────────── */
+function updateSummary() {
+  if (currentDevice) {
+    $('#chipPrinter').textContent = currentDevice.name || 'Printer Node';
+  }
+  $('#chipFile').textContent = selectedFile ? selectedFile.name : 'No file chosen';
+  const color = $('#colorModeInput').value;
+  const dpi = $('#dpiInput').value;
+  $('#chipColor').textContent = `${color === 'COLOR_RGB' ? 'Color' : color === 'GRAYSCALE_8BIT' ? 'Grayscale' : 'Mono'} · ${dpi} DPI`;
+
+  const paper = $('#paperSizeSelect').value;
+  const orient = $('#orientationInput').value === 'LANDSCAPE' ? 'Landscape' : 'Portrait';
+  const copies = $('#copiesInput').value;
+  $('#chipPaper').textContent = `${paper} ${orient} · ${copies} copy${copies > 1 ? 'ies' : ''}`;
+}
+
+/* ── Form Event Listeners ──────────────────────────────────────────── */
+['copiesInput', 'collateSelect', 'nupSelect', 'scalingSelect', 'pageRangeInput'].forEach(id => {
+  const el = $('#' + id);
+  if (el) el.oninput = () => { updatePreview(); updateSummary(); };
+});
+
+/* ── Connect & Console Lifecycle ───────────────────────────────────── */
+$('#connectForm').onsubmit = async e => {
+  e.preventDefault();
+  const rawUrl = $('#vpsUrl').value.trim();
+  const pwd = $('#password').value;
+  vpsBase = rawUrl.replace(/\/+$/, '');
+
+  try {
+    const res = await fetch(`${vpsBase}/api/connect`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pwd })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.detail || 'Connection failed');
+
+    clientToken = data.clientToken;
+    sessionStorage.setItem('pp_client_token', clientToken);
+    sessionStorage.setItem('pp_vps_url', vpsBase);
+
+    notice(`Connected to ${data.device.name || 'Printer'}`);
+    await showConsole();
+  } catch (err) {
+    notice(err.message, true);
+  }
+};
+
+async function loadWorkspace() {
+  try {
+    const [devRes, jobsRes] = await Promise.all([
+      api('/api/connect/device'),
+      api('/api/jobs')
+    ]);
+
+    if (devRes.status === 401) {
+      disconnect();
+      throw new Error('Session expired or invalid token');
+    }
+    if (!devRes.ok) throw new Error('Could not fetch device status');
+
+    const dev = await devRes.json();
+    currentDevice = dev;
+    const jobsData = jobsRes.ok ? await jobsRes.json() : { items: [] };
+
+    $('#printerHeader').innerHTML = `
+      <span class="device-indicator ${dev.isOnline ? 'online' : 'offline'}"></span>
+      ${esc(dev.name)}
+    `;
+    $('#printerSubheader').textContent = `${dev.isOnline ? 'Online and ready' : 'Offline'} · Node ID: ${dev.id}`;
+
+    $('#deviceDetails').innerHTML = `
+      <div class="item" style="padding-top:0">
+        <div class="row">
+          <div><b>Model:</b> ${esc(dev.printerModel || 'Generic USB Printer')}</div>
+          <div style="text-align:right">
+            <span class="pill ${dev.isOnline ? 'completed' : 'queued'}">${dev.isOnline ? 'Online' : 'Offline'}</span>
+          </div>
+        </div>
+        <div class="muted" style="margin-top:6px"><b>USB VID:PID:</b> ${esc(dev.vidPid || 'N/A')}</div>
+        <div class="muted" style="margin-top:4px"><b>Active Queue:</b> ${esc(dev.pendingJobsCount)} jobs</div>
+        <div class="muted" style="margin-top:4px;font-size:12px"><b>Last Heartbeat:</b> ${dev.lastHeartbeat ? esc(dev.lastHeartbeat.slice(0, 19).replace('T', ' ')) : 'Never'}</div>
+      </div>
+    `;
+
+    updateSummary();
+    renderJobs(jobsData.items || []);
+  } catch (e) {
+    notice(e.message, true);
+  }
+}
+
+async function showConsole() {
+  $('#connectSection').classList.add('hidden');
+  $('#console').classList.remove('hidden');
+  updatePreview();
+  updateSummary();
+  await loadWorkspace();
+  if (refreshTimer) clearInterval(refreshTimer);
+  refreshTimer = setInterval(loadWorkspace, 5000);
+}
+
+function getPillClass(status) {
+  switch (status) {
+    case 'COMPLETED': return 'completed';
+    case 'ASSIGNED':
+    case 'DOWNLOADING':
+    case 'READY':
+    case 'PRINTING':
+    case 'TRANSMISSION_COMPLETED': return 'in-flight';
+    case 'UNCERTAIN':
+    case 'NEEDS_RECONCILIATION': return 'uncertain';
+    case 'FAILED': return 'failed';
+    default: return 'queued';
+  }
+}
+
+function renderJobs(items) {
+  if (!items.length) {
+    $('#jobs').innerHTML = 'No print jobs in queue.';
+    return;
+  }
+
+  let queuedCount = 0;
+  $('#jobs').innerHTML = items.map(j => {
+    let positionText = '';
+    if (j.status === 'QUEUED') {
+      queuedCount++;
+      positionText = ` · Queue #${queuedCount}`;
+    }
+
+    const isCancelable = ['QUEUED', 'ASSIGNED', 'DOWNLOADING', 'READY', 'PRINTING'].includes(j.status);
+    const isReconcilable = ['UNCERTAIN', 'NEEDS_RECONCILIATION'].includes(j.status);
+    const isRetryable = ['FAILED', 'RETRY_PENDING'].includes(j.status);
+
+    return `
+      <div class="item">
+        <div class="row">
+          <div>
+            <b>${esc(j.filename)}</b>
+            <span class="pill ${getPillClass(j.status)}" style="margin-left:8px">${esc(j.status)}</span>
+          </div>
+          <div style="text-align:right" class="muted">
+            ${esc(j.progressPercent)}%${positionText}
+          </div>
+        </div>
+
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width:${Math.max(j.progressPercent, j.status === 'COMPLETED' ? 100 : 0)}%"></div>
+        </div>
+
+        <div class="muted" style="font-size:12px">
+          Copies: ${esc(j.copies)} · ${esc(j.colorMode)} · ${esc(j.paperSize || 'A4')} · Created: ${esc(j.createdAt.slice(0, 19).replace('T', ' '))}
+        </div>
+
+        ${j.failureReason ? `<div class="danger" style="margin-top:6px;font-size:13px">${esc(j.failureReason)}</div>` : ''}
+
+        <div class="actions">
+          ${isCancelable ? `<button class="secondary danger sm" onclick="cancelJob('${j.id}')">Cancel</button>` : ''}
+          ${isRetryable ? `<button class="secondary sm" onclick="retryJob('${j.id}')">Retry job</button>` : ''}
+          ${isReconcilable ? `
+            <div style="margin-top:8px;padding:8px 12px;background:#1e293b;border-radius:8px">
+              <span class="muted" style="margin-right:8px;font-weight:600">Reconciliation required: did the paper print?</span>
+              <button class="success sm" onclick="reconcileJob('${j.id}','printed')">Yes, printed</button>
+              <button class="danger sm" onclick="reconcileJob('${j.id}','not_printed')">No, retry</button>
+              <button class="secondary sm" onclick="reconcileJob('${j.id}','cancel')">Discard</button>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function cancelJob(jobId) {
+  try {
+    const res = await api(`/api/jobs/${jobId}/cancel`, { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok) throw Error(data.detail || 'Cancel failed');
+    notice('Cancellation requested');
+    await loadWorkspace();
+  } catch (e) {
+    notice(e.message, true);
+  }
+}
+
+async function retryJob(jobId) {
+  try {
+    const res = await api(`/api/jobs/${jobId}/retry`, { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok) throw Error(data.detail || 'Retry failed');
+    notice('Job requeued');
+    await loadWorkspace();
+  } catch (e) {
+    notice(e.message, true);
+  }
+}
+
+async function reconcileJob(jobId, outcome) {
+  try {
+    const res = await api(`/api/jobs/${jobId}/reconcile`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ outcome, note: 'Operator reconciliation via web console' })
+    });
+    const data = await res.json();
+    if (!res.ok) throw Error(data.detail || 'Reconciliation failed');
+    notice(`Job reconciled: ${outcome}`);
+    await loadWorkspace();
+  } catch (e) {
+    notice(e.message, true);
+  }
+}
+
+$('#refreshJobsBtn').onclick = () => loadWorkspace();
+
+/* ── Dispatcher Form Submission ────────────────────────────────────── */
+$('#dispatcherForm').onsubmit = async e => {
+  e.preventDefault();
+  const btn = $('#submitJobBtn');
+  btn.disabled = true;
+  btn.textContent = 'Queueing Job…';
+
+  try {
+    syncMarginsJson();
+    const formData = new FormData(e.target);
+
+    // Package printOptions JSON with advanced metadata
+    const advancedOptions = {
+      optimization: $('#optimizationSelect').value,
+      colorIntensity: parseInt($('#colorIntensity').value),
+      imageColorOptimization: $('#optColorCheck').checked,
+      economyColorMode: $('#economyColorCheck').checked,
+      pigmentBlackOnly: $('#pigmentBlackOnlyCheck').checked,
+      paperType: $('#paperTypeSelect').value,
+      paperTray: $('#paperTraySelect').value,
+      paperWeight: $('#paperWeightSelect').value,
+      skipBlankPages: $('#skipBlankCheck').checked,
+      backgroundGraphics: $('#bgGraphicsCheck').checked,
+      interpolation: $('#interpolationSelect').value,
+      duplex: $('#duplexSelect').value,
+      reverseOrder: $('#reverseOrderCheck').checked,
+      usbPacingMs: parseInt($('#pacingSelect').value)
+    };
+    formData.append('printOptions', JSON.stringify(advancedOptions));
+
+    const res = await api('/api/jobs', { method: 'POST', body: formData });
+    const d = await res.json();
+    if (!res.ok) throw Error(d.detail || 'Job queueing failed');
+
+    notice(`Print job queued successfully: ${d.filename}`);
+    $('#fileInput').value = '';
+    selectedFile = null;
+    $('#dropzoneText').classList.remove('hidden');
+    $('#fileBadge').classList.add('hidden');
+    updateSummary();
+    await loadWorkspace();
+  } catch (x) {
+    notice(x.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Queue Print Job';
+  }
+};
+
+async function disconnect() {
+  if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
+  try {
+    if (clientToken) {
+      await api('/api/disconnect', { method: 'POST' });
+    }
+  } catch (_) {}
+  sessionStorage.removeItem('pp_client_token');
+  clientToken = '';
+  $('#console').classList.add('hidden');
+  $('#connectSection').classList.remove('hidden');
+}
+
+$('#disconnectBtn').onclick = disconnect;
+
+if (clientToken) {
+  showConsole();
+}
+</script>
+</body>
+</html>

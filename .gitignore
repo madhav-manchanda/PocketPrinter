@@ -1,0 +1,64 @@
+# IDE / OS
+*.iml
+.gradle/
+.idea/
+.DS_Store
+*.swp
+
+# Android / Gradle build outputs
+/build/
+/captures/
+/.externalNativeBuild/
+/.cxx/
+local.properties
+app/build/
+*.apk
+*.aab
+*.jks
+*.keystore
+*.p12
+*.pfx
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+secrets/
+*.pem
+*.key
+*.crt
+
+# Runtime data
+backend/venv/
+backend/**/__pycache__/
+backend/*.db
+*_pocketprint.db
+*.pyc
+backend/storage/
+storage/
+*.log
+
+# Frontend
+web/node_modules/
+web/dist/
+frontend/node_modules/
+frontend/dist/
+
+# Python virtual environments and caches
+.venv/
+**/.venv/
+.venv-*/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Databases and generated source maps
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.map
+
+# Local environment variants (keep only explicit example templates)
+.env.production

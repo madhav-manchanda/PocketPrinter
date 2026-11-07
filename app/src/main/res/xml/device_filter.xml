@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Standard USB Printer Class (Class 7) -->
+    <usb-device class="7" />
+    
+    <!-- Hewlett-Packard Vendor ID: 0x03F0 = 1008 decimal -->
+    <!-- Matches HP devices even if configured with vendor-specific (0xFF) top-level class -->
+    <usb-device vendor-id="1008" />
+</resources>

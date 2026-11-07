@@ -1,0 +1,27 @@
+# Caddyfile for PocketPrint
+# Caddy automatically provisions and renews Let's Encrypt TLS certificates.
+
+print.yourdomain.com {
+    encode gzip zstd
+
+    # Document upload size limit (50 MB)
+    request_body {
+        max_size 50MB
+    }
+
+    # Security headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        X-XSS-Protection "1; mode=block"
+    }
+
+    # Reverse proxy to backend with automatic WebSocket and header support
+    reverse_proxy 127.0.0.1:8000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
