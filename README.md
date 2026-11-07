@@ -259,124 +259,29 @@ is running.
 
 ## Security model
 
-- Never commit `.env` files, database files, uploaded documents, Android
+- Never commit real `.env` files, database files, uploaded documents, Android
   signing keys, private certificates, or real access tokens.
-- Use the tracked `.env.example` files only as templates; copy them to ignored
+- Use tracked environment example files only as templates; copy them to ignored
   local `.env` files and replace all placeholders.
-- Release signing keys are intentionally not included. The previously tracked
-  release keystore has been removed and must not be reused; generate a new
-  private signing key and keep it outside this repository.
+- Keep release signing keys outside this repository.
 - Remote Android connections require HTTPS; HTTP is accepted only for loopback
   development URLs.
-- Android stores the device password and device token in
-  `EncryptedSharedPreferences` backed by Android Keystore.
+- Android stores device credentials using Android Keystore-backed encrypted
+  storage.
 - Browser sessions are revocable and scoped to a paired device.
 - Agent downloads require both a device token and an active job lease token.
 - WebSocket tickets are short-lived and scoped to one device or user channel.
 - Uploaded documents are checked for supported structure and stored with
   integrity metadata.
-- Production deployments should replace every development password and secret
-  in environment configuration.
 
-## Local development
+## Project terms
 
-### Backend
+PocketPrint uses a restricted, contribution-only licence. Viewing the public
+repository does not grant permission to republish, independently distribute,
+or sell the project. Contributions are accepted through pull requests and are
+subject to the terms in [`license.md`](./license.md) and
+[`contribution.md`](./contribution.md).
 
-Use Python 3.11+ and create the virtual environment outside version control.
-Copy the safe template to a local, ignored `.env` file and replace the
-placeholder secret before running:
-
-```powershell
-cd backend
-Copy-Item .env.example .env
-python -c "import secrets; print(secrets.token_urlsafe(48))"
-# Put the generated value in SECRET_KEY in backend/.env
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000
-```
-
-The backend uses SQLite by default for local development. PostgreSQL is
-configured through `DATABASE_URL` for deployment. Never commit `.env` files,
-database files, uploaded documents, or production credentials.
-
-For Docker Compose, copy the repository-root `.env.example` to `.env` and
-set unique values for `POSTGRES_PASSWORD`, `POCKETPRINT_SECRET`,
-`CORS_ALLOWED_ORIGINS`, and `TRUSTED_HOSTS` before starting the stack.
-Compose intentionally refuses to start when required production values are
-missing.
-
-### React dashboard
-
-```powershell
-cd frontend
-npm install
-npm run dev
-```
-
-Set `VITE_API_BASE_URL` when the dashboard is served separately from the
-backend. When served by the backend, same-origin `/api` requests are used.
-
-### Android app
-
-Debug builds do not require a release signing key. Release signing credentials
-must be supplied through the environment variables
-`POCKETPRINT_KEYSTORE_PATH`, `POCKETPRINT_KEYSTORE_PASSWORD`,
-`POCKETPRINT_KEY_ALIAS`, and `POCKETPRINT_KEY_PASSWORD`. Keep the keystore
-outside the repository and store its credentials in a secret manager or local
-environment. Do not commit signing keys or passwords.
-
-```powershell
-.\gradlew.bat assembleDebug
-adb install -r app\build\outputs\apk\debug\app-debug.apk
-adb shell am start -n com.pocketprint/.ui.main.MainActivity
-adb logcat -s PocketPrint:V
-```
-
-Connect a printer through a USB OTG adapter, grant Android USB permission, and
-use **Test Interface Claim** in the app before sending physical output.
-
-### Docker deployment
-
-```powershell
-docker compose up --build -d
-```
-
-The compose stack starts PostgreSQL and the FastAPI service on port `8000`.
-Use [`deploy/nginx.conf`](./deploy/nginx.conf) for HTTPS termination, upload
-limits, and WebSocket proxying.
-
-## Testing
-
-```powershell
-.\gradlew.bat :app:testDebugUnitTest
-cd backend
-pytest
-cd ..\frontend
-npm run lint
-npm run build
-```
-
-Physical printer compatibility still requires the manual checks described in
-[`docs/MANUAL_HARDWARE_CHECKLIST.md`](./docs/MANUAL_HARDWARE_CHECKLIST.md) and
-[`USB_COMPATIBILITY_REPORT.md`](./USB_COMPATIBILITY_REPORT.md).
-
-## Current limitations
-
-- Physical HP Ink Tank 310 validation is separate from automated tests.
-- DOCX, XLSX, PPTX, and RTF should be printed from their source viewer so the
-  server receives a layout-faithful PDF.
-- Legacy binary Office and OpenDocument formats are not supported.
-- Some TIFF variants (tiled, planar, non-top-left orientation, and unsupported
-  fax compression) are rejected explicitly.
-
-See [`docs/PRINT_ENGINE_ARCHITECTURE.md`](./docs/PRINT_ENGINE_ARCHITECTURE.md),
-[`PHASE5_USB_STREAMING.md`](./PHASE5_USB_STREAMING.md), and
-[`docs/PRINT_QUALITY_REPORT.md`](./docs/PRINT_QUALITY_REPORT.md) for deeper
-implementation notes.
-
-## License
-
-No license file is currently included in this repository. Add a license before
-redistributing the project.
+- [Licence](./license.md)
+- [Contribution guidelines](./contribution.md)
+- [Security policy](./security.md)
