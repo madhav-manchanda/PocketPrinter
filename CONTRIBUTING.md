@@ -1,77 +1,96 @@
 # Contributing to PocketPrint
 
-Thank you for considering a contribution. PocketPrint is maintained as a
-project-controlled repository. Contributions are welcome through pull requests
-to the official repository.
+Thanks for helping improve PocketPrint! Bug reports, documentation fixes,
+hardware compatibility reports, tests, and code contributions are welcome.
 
-## Before you contribute
+## Ways to contribute
 
-1. Open an issue or discussion for substantial changes so the maintainers can
-   agree on the approach.
-2. Check existing issues and pull requests to avoid duplicated work.
-3. Keep changes focused and explain the problem they solve.
-4. Do not include secrets, personal data, printer documents, logs, database
-   files, signing keys, generated build output, or private configuration.
-5. Run the relevant tests and checks before opening a pull request.
+- Report reproducible bugs and unexpected printer behaviour.
+- Test printer models and Android devices and share compatibility results.
+- Improve setup instructions, architecture documentation, and examples.
+- Fix bugs or implement features discussed in an issue.
+- Improve automated tests, accessibility, and security.
 
-## Contribution workflow
+For substantial changes, open an issue or discussion first so we can agree on
+the approach before you spend time implementing it.
 
-1. Create a temporary fork only for preparing your contribution.
-2. Create a focused branch in that fork.
-3. Make your changes and add or update tests where appropriate.
-4. Run the applicable Android, backend, and frontend checks.
-5. Open a pull request against the official PocketPrinter repository.
-6. Describe the change, motivation, testing performed, and any security or
-   compatibility implications.
-7. Keep the pull request updated and respond to review feedback.
+## Development workflow
 
-A fork created for contribution purposes must not be independently published,
-marketed, distributed, or maintained as a separate project.
+1. Fork the repository and create a focused branch.
+2. Make a small, reviewable change.
+3. Add or update tests and documentation where appropriate.
+4. Run the relevant checks described below.
+5. Open a pull request against `main`, explaining the motivation, design,
+   testing performed, and any compatibility or security implications.
+6. Respond to review feedback and keep the pull request up to date.
 
-## Contributor rights and permission grant
+Forks and modified copies are permitted under the MIT License. Please make it
+clear when a copy is an unofficial fork and do not imply that it is the
+official PocketPrint project.
 
-You retain copyright ownership of the original material you contribute.
+## Project areas
 
-By submitting a pull request, you grant the PocketPrint project owner a
-perpetual, worldwide, non-exclusive, royalty-free, irrevocable (except where
-prohibited by law) licence to use, reproduce, modify, adapt, combine, publicly
-display, publicly perform, distribute, sublicense, and otherwise maintain your
-contribution as part of PocketPrint and its official distributions, in source
-or object form and for commercial or non-commercial purposes.
+| Area | Main location | Notes |
+| --- | --- | --- |
+| Android app | `app/` | Kotlin, USB host access, document rendering, print pipeline |
+| Backend | `backend/` | FastAPI, authentication, job lifecycle, storage, WebSockets |
+| Web dashboard | `frontend/` | React, TypeScript, Vite |
+| Deployment | `deploy/`, `docker-compose.yml` | Service and reverse-proxy configuration |
+| Documentation | `README.md`, `docs/` | Architecture, setup, hardware validation |
 
-You confirm that:
+## Checks
 
-- You created the contribution or have the authority to submit it and grant
-  these permissions.
-- Your contribution does not knowingly violate another person's intellectual
-  property, privacy, or contractual rights.
-- You have identified third-party code or assets and their applicable licences.
-- You understand that accepted contributions may be modified, relicensed as
-  part of the project, or removed by the project owner.
+Run the checks relevant to the files you changed. Typical commands include:
 
-This grant does not transfer your copyright ownership. It gives the project
-owner the permissions needed to incorporate and maintain the contribution.
-Do not submit a contribution if you cannot agree to these terms.
+```bash
+# Backend
+cd backend
+python -m pip install -r requirements.txt
+pytest
 
-## Code and quality expectations
+# Frontend
+cd frontend
+npm ci
+npm run build
 
-- Follow the existing project structure and style.
-- Prefer small, reviewable pull requests.
-- Add tests for bug fixes and new behaviour.
-- Do not weaken authentication, authorization, input validation, transport
-  security, or data isolation.
-- Never log passwords, access tokens, pairing codes, document contents, or
-  other secrets.
-- Update documentation when behaviour, configuration, or APIs change.
+# Android (from repository root; requires a compatible JDK and Android SDK)
+./gradlew test
+```
+
+Some tests require PostgreSQL, Android SDK components, connected hardware, or
+environment variables. If a check cannot be run, say so in your pull request
+instead of claiming it passed.
+
+## Pull request expectations
+
+- Keep changes focused and explain why they are needed.
+- Include tests for bug fixes and new behaviour when practical.
+- Update documentation and example configuration when behaviour changes.
+- Preserve authentication, authorization, data isolation, and secret handling.
+- Do not commit real environment files, API keys, passwords, tokens, signing
+  keys, databases, user documents, private logs, or generated build output.
+- Disclose new dependencies and their licences.
+- Do not submit code or assets you do not have the right to contribute.
+
+## Licensing contributions
+
+By submitting a contribution, you agree that the contribution is provided
+under the same MIT License that applies to this repository. You retain
+copyright ownership of your contribution. You confirm that you have the right
+to submit it and that, to the best of your knowledge, it does not violate
+another person's rights.
+
+If a contribution includes third-party code, assets, or data, identify them
+and their licence or permission in the pull request. Do not include material
+whose licence is incompatible with the project.
 
 ## Security issues
 
-Do not report exploitable vulnerabilities in public issues or pull requests.
-Follow the private reporting instructions in `security.md`.
+Please do not publish exploitable vulnerability details in public issues or
+pull requests. Follow [SECURITY.md](./SECURITY.md) for private reporting
+instructions.
 
-## Review and acceptance
+## Code of conduct
 
-Opening a pull request does not guarantee acceptance. Maintainers may request
-changes, decline a contribution, or close a pull request. Only contributions
-accepted and merged into the official repository become part of the official
-PocketPrint codebase.
+Participation in this project is governed by the
+[Code of Conduct](./CODE_OF_CONDUCT.md).
