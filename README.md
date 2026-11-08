@@ -136,48 +136,6 @@ sequenceDiagram
     C-->>U: WebSocket status event + refreshable job state
 ```
 
-### GitHub-compatible animated flow
-
-GitHub strips executable JavaScript and arbitrary CSS from README HTML, so a
-`<script>` or `<style>` animation cannot run here. This inline SVG uses native
-SVG animation instead: the moving signal dot represents a document travelling
-from the dashboard to the USB printer. Browsers that disable SVG animation still
-show the labeled static flow below it.
-
-<details open>
-<summary><strong>▶ Watch the document flow</strong></summary>
-
-<svg viewBox="0 0 960 180" role="img" aria-labelledby="flow-title flow-desc" width="100%" xmlns="http://www.w3.org/2000/svg">
-  <title id="flow-title">Animated PocketPrint document flow</title>
-  <desc id="flow-desc">A document moves from the browser dashboard through the cloud and Android agent to the USB printer.</desc>
-  <rect x="20" y="55" width="180" height="70" rx="14" fill="#17324d" stroke="#57c7ff" stroke-width="2"/>
-  <rect x="260" y="55" width="180" height="70" rx="14" fill="#2b2045" stroke="#c79cff" stroke-width="2"/>
-  <rect x="500" y="55" width="180" height="70" rx="14" fill="#2b2045" stroke="#c79cff" stroke-width="2"/>
-  <rect x="740" y="55" width="180" height="70" rx="14" fill="#153b32" stroke="#58d68d" stroke-width="2"/>
-  <g fill="#ffffff" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">
-    <text x="110" y="85">Browser dashboard</text>
-    <text x="350" y="85">FastAPI cloud</text>
-    <text x="590" y="85">Android agent</text>
-    <text x="830" y="85">USB printer</text>
-  </g>
-  <g stroke="#8ba3b5" stroke-width="3" fill="none">
-    <path d="M200 90H260"/>
-    <path d="M440 90H500"/>
-    <path d="M680 90H740"/>
-  </g>
-  <g fill="#8ba3b5">
-    <path d="M260 90l-12-7v14z"/>
-    <path d="M500 90l-12-7v14z"/>
-    <path d="M740 90l-12-7v14z"/>
-  </g>
-  <circle r="8" fill="#ffd166">
-    <animateMotion dur="5s" repeatCount="indefinite" path="M110,90 L350,90 L590,90 L830,90 L590,90 L350,90 L110,90"/>
-  </circle>
-  <text x="480" y="30" fill="#6b7280" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">upload → queue → render → print</text>
-</svg>
-
-</details>
-
 ## Data flow
 
 ```mermaid
