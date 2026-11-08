@@ -1,4 +1,4 @@
-# PocketPrint
+# PocketPrinter
 
 ### Turn an Android USB printer into a secure Wi-Fi printer
 
